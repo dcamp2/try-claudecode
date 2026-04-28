@@ -344,6 +344,62 @@
     color: var(--text-dim);
   }
 
+  /* Bonus section */
+  .bonus-divider {
+    text-align: center;
+    max-width: 640px;
+    margin: 20px auto 0;
+    padding: 40px 20px 0;
+    border-top: 2px dashed var(--card-border);
+  }
+  .bonus-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--purple), var(--blue));
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(206,130,255,0.3);
+  }
+  .bonus-divider h2 {
+    font-size: clamp(22px, 5vw, 30px);
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .bonus-divider p {
+    font-size: clamp(15px, 3vw, 17px);
+    color: var(--text-dim);
+    word-break: keep-all;
+  }
+  .bonus-steps { padding-top: 24px; }
+
+  /* Prompt example block */
+  .prompt-block {
+    background: linear-gradient(135deg, rgba(206,130,255,0.12), rgba(28,176,246,0.12));
+    border: 2px solid rgba(206,130,255,0.4);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 12px 0;
+    font-size: clamp(15px, 3vw, 17px);
+    color: var(--text);
+    line-height: 1.7;
+    font-weight: 700;
+    position: relative;
+  }
+  .prompt-block::before {
+    content: '💬';
+    position: absolute;
+    top: -14px;
+    left: 16px;
+    background: var(--bg);
+    padding: 0 6px;
+    font-size: 22px;
+  }
+
   /* Scrollbar */
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -526,6 +582,85 @@
   <p>이제 Claude Code에게 뭐든 시켜보세요.<br>"홈페이지 만들어줘" 라고 말해보는 건 어때요?</p>
 </div>
 
+<!-- Bonus intro -->
+<div class="bonus-divider">
+  <div class="bonus-badge">💎 BONUS</div>
+  <h2>한 걸음 더 — 내 비서로 키우기</h2>
+  <p>Claude 데스크톱을 깔고 <strong>Gmail · 캘린더</strong>를 연결하면<br>
+  Claude Code가 내 이메일과 일정까지 보고 일을 처리해줘요.</p>
+</div>
+
+<!-- Bonus Steps -->
+<div class="steps bonus-steps">
+
+  <!-- Step 8: Claude Desktop -->
+  <div class="step bonus" data-step="8">
+    <div class="step-number blue">8</div>
+    <div class="step-card">
+      <h2><span class="emoji">🖥️</span> Claude 데스크톱 설치</h2>
+      <p>Windows용 <strong>Claude 데스크톱 앱</strong>이 필요해요. 커넥터(Gmail·캘린더 같은 외부 연결)를 여기서 켜요.</p>
+      <a class="btn btn-blue" href="https://claude.ai/download" target="_blank" rel="noopener">
+        ⬇️ Claude 데스크톱 다운로드
+      </a>
+      <ul class="inst-list">
+        <li>다운로드된 파일을 <strong>더블클릭</strong>해서 설치</li>
+        <li>설치 끝나면 <strong>Claude</strong> 앱 실행</li>
+        <li>아까와 <strong>같은 Claude 계정</strong>으로 로그인</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 잠깐:</strong> 이건 Claude Code(터미널)랑 다른 별도 앱이에요. 같은 계정으로 로그인하면 데이터가 연동돼요!
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 9: Connectors -->
+  <div class="step bonus" data-step="9">
+    <div class="step-number purple">9</div>
+    <div class="step-card">
+      <h2><span class="emoji">🔌</span> Gmail · 캘린더 커넥터 연결</h2>
+      <p>Claude 데스크톱 안에서 <strong>커넥터(Connectors)</strong>를 켜면 Claude가 내 이메일·일정을 직접 볼 수 있어요.</p>
+      <ul class="inst-list">
+        <li>Claude 데스크톱 좌측 하단의 <strong>내 이름/이니셜 클릭</strong></li>
+        <li><strong>Settings (설정)</strong> → <strong>Connectors (커넥터)</strong> 메뉴로 이동</li>
+        <li><strong>Gmail</strong> 옆 <strong>Connect</strong> 버튼 클릭</li>
+        <li>브라우저가 열리면 <strong>Google 계정으로 로그인</strong> → 권한 <strong>허용</strong></li>
+        <li>같은 방법으로 <strong>Google Calendar</strong>도 연결</li>
+      </ul>
+      <div class="tip tip-blue">
+        <strong>🔒 안심하세요:</strong> 내가 시킬 때만 Claude가 데이터를 봐요. 언제든 같은 메뉴에서 연결을 끊을 수 있어요.
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 10: Use from Claude Code -->
+  <div class="step bonus" data-step="10">
+    <div class="step-number green">10</div>
+    <div class="step-card">
+      <h2><span class="emoji">✨</span> 이제 Claude Code에 시키기</h2>
+      <p>한 번 연결해두면 <strong>Claude Code 터미널에서도</strong> 같은 커넥터를 쓸 수 있어요.<br>
+      아까 만든 <strong>cc</strong> 명령으로 켜고 이렇게 말해보세요.</p>
+      <div class="prompt-block">
+        내 이메일과 캘린더 확인해서<br>오늘 내 업무 요약보고서 만들어줘
+      </div>
+      <div class="tip tip-blue">
+        <strong>💡 이런 것도 됩니다:</strong><br>
+        · "이번 주 회의 일정 정리해서 핵심만 알려줘"<br>
+        · "지난 3일간 받은 중요 메일 5개 요약해줘"<br>
+        · "오후에 비는 시간 찾아서 운동 일정 잡아줘"<br>
+        · "프로젝트 X 관련 메일·일정 묶어서 보고서로 만들어줘"
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Final celebration -->
+<div class="done">
+  <div class="emoji-big">🚀</div>
+  <h2>이제 진짜 끝!</h2>
+  <p>Claude Code가 당신의 든든한 비서가 됐어요.</p>
+</div>
+
 <script>
 // Copy to clipboard
 function copyCode(btn, text) {
@@ -540,27 +675,45 @@ function copyCode(btn, text) {
 }
 
 // Scroll animation & progress
-const steps = document.querySelectorAll('.step');
-const totalSteps = steps.length;
+const allSteps = document.querySelectorAll('.step');
+const progressSteps = document.querySelectorAll('.step:not(.bonus)');
+const bonusSteps = document.querySelectorAll('.step.bonus');
+const totalSteps = progressSteps.length;
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
 const labels = ['시작해볼까요?', '1/7 Node.js 설치', '2/7 Git 설치', '3/7 PowerShell 설정', '4/7 Claude Code 설치', '5/7 Claude 실행', '6/7 로그인', '7/7 cc 단축키 만들기'];
+const bonusLabel = '💎 BONUS — 더 강력하게';
 
 function updateProgress() {
-  let maxVisible = 0;
-  steps.forEach((step, i) => {
+  // Animate every step (including bonus) when it scrolls into view
+  allSteps.forEach((step) => {
     const rect = step.getBoundingClientRect();
-    const visible = rect.top < window.innerHeight * 0.8;
-    if (visible) {
+    if (rect.top < window.innerHeight * 0.8) {
       step.classList.add('visible');
+    }
+  });
+
+  // Count progress only from main (non-bonus) steps
+  let maxVisible = 0;
+  progressSteps.forEach((step, i) => {
+    const rect = step.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.8) {
       maxVisible = i + 1;
     }
   });
+
+  // Detect if user has scrolled into the bonus section
+  let inBonus = false;
+  bonusSteps.forEach((step) => {
+    const rect = step.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.8) inBonus = true;
+  });
+
   const pct = (maxVisible / totalSteps) * 100;
   progressFill.style.width = pct + '%';
-  progressText.textContent = labels[maxVisible] || labels[0];
+  progressText.textContent = inBonus ? bonusLabel : (labels[maxVisible] || labels[0]);
 
-  // Confetti when all done
+  // Confetti when main install is done
   if (maxVisible === totalSteps && !window._confettiFired) {
     window._confettiFired = true;
     setTimeout(fireConfetti, 600);
