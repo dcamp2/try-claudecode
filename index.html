@@ -344,13 +344,91 @@
     color: var(--text-dim);
   }
 
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    max-width: 600px;
+    margin: 0 auto 10px;
+    background: var(--card);
+    padding: 4px;
+    border-radius: 99px;
+    border: 1px solid var(--card-border);
+  }
+  .tab {
+    flex: 1;
+    padding: 10px 6px;
+    background: transparent;
+    border: none;
+    border-radius: 99px;
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: clamp(12px, 2.6vw, 14px);
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+  .tab.active[data-tab="install"] { background: linear-gradient(135deg, var(--green), var(--blue)); }
+  .tab.active[data-tab="bonus"]   { background: linear-gradient(135deg, var(--purple), var(--blue)); }
+  .tab.active[data-tab="deploy"]  { background: linear-gradient(135deg, var(--orange), var(--red)); }
+  .tab-emoji { font-size: 16px; line-height: 1; }
+  @media (max-width: 480px) {
+    .tab { padding: 8px 4px; font-size: 11px; gap: 3px; }
+    .tab-emoji { font-size: 14px; }
+  }
+
+  /* Tab content visibility */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Deploy intro (twin of bonus-divider) */
+  .deploy-intro {
+    text-align: center;
+    max-width: 640px;
+    margin: 20px auto 0;
+    padding: 40px 20px 0;
+  }
+  .deploy-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--orange), var(--red));
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(255,150,0,0.3);
+  }
+  .deploy-intro h2 {
+    font-size: clamp(22px, 5vw, 30px);
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+  .deploy-intro p {
+    font-size: clamp(15px, 3vw, 17px);
+    color: var(--text-dim);
+    word-break: keep-all;
+  }
+
   /* Bonus section */
   .bonus-divider {
     text-align: center;
     max-width: 640px;
     margin: 20px auto 0;
     padding: 40px 20px 0;
-    border-top: 2px dashed var(--card-border);
   }
   .bonus-badge {
     display: inline-block;
@@ -424,17 +502,25 @@
 <!-- Hero -->
 <div class="hero">
   <div class="hero-icon">🤖</div>
-  <h1>Claude Code 설치 가이드</h1>
-  <p>Windows에서 7단계만 따라하면 끝!</p>
+  <h1>Claude Code 가이드</h1>
+  <p>설치 · 커넥터 · 배포까지 — 클릭만 따라하면 끝!</p>
 </div>
 
-<!-- Progress -->
+<!-- Top sticky bar: tabs + progress -->
 <div class="progress-wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-tab="install" type="button"><span class="tab-emoji">🚀</span><span>설치하기</span></button>
+    <button class="tab" data-tab="bonus" type="button"><span class="tab-emoji">💎</span><span>더 강력하게</span></button>
+    <button class="tab" data-tab="deploy" type="button"><span class="tab-emoji">🌐</span><span>사이트 배포</span></button>
+  </div>
   <div class="progress-bar">
     <div class="progress-fill" id="progressFill"></div>
   </div>
   <div class="progress-text" id="progressText">시작해볼까요?</div>
 </div>
+
+<!-- Tab: Install -->
+<div class="tab-content active" id="tab-install">
 
 <!-- Steps -->
 <div class="steps">
@@ -582,6 +668,11 @@
   <p>이제 Claude Code에게 뭐든 시켜보세요.<br>"홈페이지 만들어줘" 라고 말해보는 건 어때요?</p>
 </div>
 
+</div><!-- /tab-install -->
+
+<!-- Tab: Bonus -->
+<div class="tab-content" id="tab-bonus">
+
 <!-- Bonus intro -->
 <div class="bonus-divider">
   <div class="bonus-badge">💎 BONUS</div>
@@ -593,9 +684,9 @@
 <!-- Bonus Steps -->
 <div class="steps bonus-steps">
 
-  <!-- Step 8: Claude Desktop -->
-  <div class="step bonus" data-step="8">
-    <div class="step-number blue">8</div>
+  <!-- Bonus Step 1: Claude Desktop -->
+  <div class="step bonus" data-step="b1">
+    <div class="step-number blue">1</div>
     <div class="step-card">
       <h2><span class="emoji">🖥️</span> Claude 데스크톱 설치</h2>
       <p>Windows용 <strong>Claude 데스크톱 앱</strong>이 필요해요. 커넥터(Gmail·캘린더 같은 외부 연결)를 여기서 켜요.</p>
@@ -613,9 +704,9 @@
     </div>
   </div>
 
-  <!-- Step 9: Connectors -->
-  <div class="step bonus" data-step="9">
-    <div class="step-number purple">9</div>
+  <!-- Bonus Step 2: Connectors -->
+  <div class="step bonus" data-step="b2">
+    <div class="step-number purple">2</div>
     <div class="step-card">
       <h2><span class="emoji">🔌</span> Gmail · 캘린더 커넥터 연결</h2>
       <p>Claude 데스크톱 안에서 <strong>커넥터(Connectors)</strong>를 켜면 Claude가 내 이메일·일정을 직접 볼 수 있어요.</p>
@@ -632,9 +723,9 @@
     </div>
   </div>
 
-  <!-- Step 10: Use from Claude Code -->
-  <div class="step bonus" data-step="10">
-    <div class="step-number green">10</div>
+  <!-- Bonus Step 3: Use from Claude Code -->
+  <div class="step bonus" data-step="b3">
+    <div class="step-number green">3</div>
     <div class="step-card">
       <h2><span class="emoji">✨</span> 이제 Claude Code에 시키기</h2>
       <p>한 번 연결해두면 <strong>Claude Code 터미널에서도</strong> 같은 커넥터를 쓸 수 있어요.<br>
@@ -654,12 +745,122 @@
 
 </div>
 
-<!-- Final celebration -->
+<!-- Bonus done -->
 <div class="done">
   <div class="emoji-big">🚀</div>
-  <h2>이제 진짜 끝!</h2>
-  <p>Claude Code가 당신의 든든한 비서가 됐어요.</p>
+  <h2>비서 준비 완료!</h2>
+  <p>Claude가 내 메일과 일정을 보고<br>일까지 처리해주는 든든한 비서가 됐어요.</p>
 </div>
+
+</div><!-- /tab-bonus -->
+
+<!-- Tab: Deploy -->
+<div class="tab-content" id="tab-deploy">
+
+<!-- Deploy intro -->
+<div class="deploy-intro">
+  <div class="deploy-badge">🌐 DEPLOY</div>
+  <h2>내가 만든 사이트, 세상에 공개하기</h2>
+  <p>Claude Code로 홈페이지나 도구를 만들었나요?<br>
+  무료로 인터넷에 띄워서 친구·동료에게 보여줄 수 있어요.</p>
+</div>
+
+<!-- Deploy steps -->
+<div class="steps">
+
+  <!-- Deploy Step 1: GitHub account -->
+  <div class="step bonus" data-step="d1">
+    <div class="step-number orange">1</div>
+    <div class="step-card">
+      <h2><span class="emoji">🐙</span> GitHub 계정 만들기</h2>
+      <p>GitHub은 코드·파일을 저장하는 <strong>온라인 창고</strong>예요. 무료고, 한 번 만들면 평생 써요.</p>
+      <a class="btn btn-blue" href="https://github.com/signup" target="_blank" rel="noopener">
+        ⬇️ GitHub 가입하기
+      </a>
+      <ul class="inst-list">
+        <li><strong>이메일·비밀번호</strong> 입력 (로봇 검증 한 번 통과)</li>
+        <li><strong>유저네임</strong> 정하기 — 영어/숫자로 (예: <code style="color:var(--orange)">joon-dev</code>)</li>
+        <li>이메일로 온 <strong>인증 코드</strong> 입력 → 가입 완료</li>
+        <li>플랜 선택 화면 → <strong>"Continue for free"</strong> 선택</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 유저네임은 신중하게:</strong> 나중에 사이트 주소(<code style="color:var(--orange)">유저네임.github.io</code>)에도 쓰여요. 짧고 깔끔한 걸로!
+      </div>
+    </div>
+  </div>
+
+  <!-- Deploy Step 2: Push to GitHub via Claude Code -->
+  <div class="step bonus" data-step="d2">
+    <div class="step-number purple">2</div>
+    <div class="step-card">
+      <h2><span class="emoji">📤</span> Claude Code로 GitHub에 올리기</h2>
+      <p>가장 쉬운 방법 — <strong>Claude Code에게 시키는 거예요.</strong></p>
+      <p>아까 만든 <strong>cc</strong>로 Claude Code 켜고 이렇게 말하세요.</p>
+      <div class="prompt-block">
+        이 프로젝트를 내 GitHub에 올려줘.<br>
+        내 GitHub 유저네임은 <strong>○○○</strong>이야.
+      </div>
+      <p>Claude가 알아서 git 명령어를 실행하고 GitHub 저장소(repository)를 만들어줘요.</p>
+      <ul class="inst-list">
+        <li>중간에 <strong>GitHub 로그인</strong>을 요청할 수 있어요 → 브라우저에서 인증</li>
+        <li>저장소 이름은 Claude가 추천해주거나, 원하는 이름을 알려줘도 돼요</li>
+        <li>끝나면 <code style="color:var(--green)">github.com/유저네임/저장소이름</code> 주소를 알려줘요</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 손으로 하고 싶다면:</strong> github.com에서 "New repository" 만들고 파일을 드래그 앤 드롭해도 돼요. 하지만 Claude한테 시키는 게 훨씬 빨라요!
+      </div>
+    </div>
+  </div>
+
+  <!-- Deploy Step 3: Vercel signup -->
+  <div class="step bonus" data-step="d3">
+    <div class="step-number blue">3</div>
+    <div class="step-card">
+      <h2><span class="emoji">▲</span> Vercel 가입</h2>
+      <p>Vercel은 <strong>웹사이트를 인터넷에 띄워주는 무료 서비스</strong>예요.</p>
+      <a class="btn btn-blue" href="https://vercel.com/signup" target="_blank" rel="noopener">
+        ⬇️ Vercel 가입하기
+      </a>
+      <ul class="inst-list">
+        <li><strong>"Continue with GitHub"</strong> 클릭 (방금 만든 계정으로)</li>
+        <li>권한 묻는 화면 → <strong>"Authorize Vercel"</strong> 클릭</li>
+        <li>플랜 선택 → 무료 <strong>"Hobby"</strong> 선택</li>
+        <li>이름·소속 같은 건 가볍게 채우고 통과</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Deploy Step 4: Deploy! -->
+  <div class="step bonus" data-step="d4">
+    <div class="step-number green">4</div>
+    <div class="step-card">
+      <h2><span class="emoji">✨</span> 클릭 한 번으로 배포</h2>
+      <p>Vercel 대시보드에서 GitHub 저장소만 골라주면 끝이에요.</p>
+      <ul class="inst-list">
+        <li>대시보드 우측 상단 <strong>"Add New..." → "Project"</strong> 클릭</li>
+        <li>아까 만든 저장소 옆 <strong>"Import"</strong> 클릭 <span style="color:var(--text-dim);font-size:13px">(안 보이면 "Adjust GitHub App Permissions"로 권한 추가)</span></li>
+        <li>설정 화면이 떠도 <strong>아무것도 건드리지 말고</strong> 아래 <strong>"Deploy"</strong> 클릭</li>
+        <li>30초~1분 기다리면 🎉 → <strong>"Visit"</strong> 클릭하면 새 사이트 오픈!</li>
+      </ul>
+      <div class="tip tip-blue">
+        <strong>🌐 결과:</strong> <code style="color:var(--blue)">○○○.vercel.app</code> 같은 주소가 생기고, 이제 <strong>전 세계 누구나</strong> 그 URL로 접속할 수 있어요!
+      </div>
+      <div class="tip">
+        <strong>💡 자동 업데이트:</strong> 이후 Claude Code로 사이트 수정하고 GitHub에 다시 push하면 Vercel이 <strong>자동으로 재배포</strong>해요. 손댈 거 없음!
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Deploy done -->
+<div class="done">
+  <div class="emoji-big">🌐</div>
+  <h2>전 세계에 공개됐어요!</h2>
+  <p>이제 친구·동료에게 URL만 보내면 끝.<br>다음엔 또 뭘 만들어볼까요?</p>
+</div>
+
+</div><!-- /tab-deploy -->
 
 <script>
 // Copy to clipboard
@@ -674,48 +875,61 @@ function copyCode(btn, text) {
   });
 }
 
-// Scroll animation & progress
-const allSteps = document.querySelectorAll('.step');
-const progressSteps = document.querySelectorAll('.step:not(.bonus)');
-const bonusSteps = document.querySelectorAll('.step.bonus');
-const totalSteps = progressSteps.length;
+// Tab switching + scroll progress (per active tab)
+const tabs = document.querySelectorAll('.tab');
+const tabContents = document.querySelectorAll('.tab-content');
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
-const labels = ['시작해볼까요?', '1/7 Node.js 설치', '2/7 Git 설치', '3/7 PowerShell 설정', '4/7 Claude Code 설치', '5/7 Claude 실행', '6/7 로그인', '7/7 cc 단축키 만들기'];
-const bonusLabel = '💎 BONUS — 더 강력하게';
+
+const labelsByTab = {
+  install: ['시작해볼까요?', '1/7 Node.js 설치', '2/7 Git 설치', '3/7 PowerShell 설정', '4/7 Claude Code 설치', '5/7 Claude 실행', '6/7 로그인', '7/7 cc 단축키 만들기'],
+  bonus:   ['💎 데스크톱부터 시작', '1/3 데스크톱 설치', '2/3 커넥터 연결', '3/3 Claude Code에서 활용'],
+  deploy:  ['🌐 GitHub부터 시작', '1/4 GitHub 가입', '2/4 코드 올리기', '3/4 Vercel 가입', '4/4 배포!']
+};
+const confettiFired = { install: false, bonus: false, deploy: false };
+let currentTab = 'install';
+
+function switchTab(name) {
+  if (name === currentTab) return;
+  currentTab = name;
+  tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  tabContents.forEach(tc => tc.classList.toggle('active', tc.id === 'tab-' + name));
+  // Reset visible animation in newly-shown tab so it animates again
+  document.querySelectorAll('#tab-' + name + ' .step').forEach(s => s.classList.remove('visible'));
+  // Scroll back near top of content (just below the sticky topbar)
+  const topbarH = document.querySelector('.progress-wrap').offsetHeight;
+  window.scrollTo({ top: Math.max(0, topbarH - 4), behavior: 'smooth' });
+  setTimeout(updateProgress, 50);
+}
+tabs.forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
 
 function updateProgress() {
-  // Animate every step (including bonus) when it scrolls into view
-  allSteps.forEach((step) => {
+  const activeTabContent = document.querySelector('.tab-content.active');
+  if (!activeTabContent) return;
+  const stepsInTab = activeTabContent.querySelectorAll('.step');
+  const labels = labelsByTab[currentTab];
+  const total = stepsInTab.length;
+
+  // Animate steps as they scroll into view
+  stepsInTab.forEach((step) => {
     const rect = step.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.8) {
-      step.classList.add('visible');
-    }
+    if (rect.top < window.innerHeight * 0.8) step.classList.add('visible');
   });
 
-  // Count progress only from main (non-bonus) steps
+  // Count how many steps have been reached
   let maxVisible = 0;
-  progressSteps.forEach((step, i) => {
+  stepsInTab.forEach((step, i) => {
     const rect = step.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.8) {
-      maxVisible = i + 1;
-    }
+    if (rect.top < window.innerHeight * 0.8) maxVisible = i + 1;
   });
 
-  // Detect if user has scrolled into the bonus section
-  let inBonus = false;
-  bonusSteps.forEach((step) => {
-    const rect = step.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.8) inBonus = true;
-  });
-
-  const pct = (maxVisible / totalSteps) * 100;
+  const pct = (maxVisible / total) * 100;
   progressFill.style.width = pct + '%';
-  progressText.textContent = inBonus ? bonusLabel : (labels[maxVisible] || labels[0]);
+  progressText.textContent = labels[maxVisible] || labels[0];
 
-  // Confetti when main install is done
-  if (maxVisible === totalSteps && !window._confettiFired) {
-    window._confettiFired = true;
+  // Confetti when reaching the end of any tab (once per tab)
+  if (maxVisible === total && !confettiFired[currentTab]) {
+    confettiFired[currentTab] = true;
     setTimeout(fireConfetti, 600);
   }
 }
