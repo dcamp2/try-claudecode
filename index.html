@@ -369,7 +369,7 @@
 <div class="hero">
   <div class="hero-icon">🤖</div>
   <h1>Claude Code 설치 가이드</h1>
-  <p>Windows에서 6단계만 따라하면 끝!</p>
+  <p>Windows에서 7단계만 따라하면 끝!</p>
 </div>
 
 <!-- Progress -->
@@ -496,6 +496,27 @@
     </div>
   </div>
 
+  <!-- Step 7: cc.bat shortcut -->
+  <div class="step" data-step="7">
+    <div class="step-number orange">7</div>
+    <div class="step-card">
+      <h2><span class="emoji">⚡</span> cc 한 줄로 실행하기 <span style="font-size:14px;color:var(--text-dim);font-weight:400;">(선택)</span></h2>
+      <p>매번 <code style="color:var(--orange)">claude --dangerously-skip-permissions</code> 길게 치기 귀찮죠?<br><strong>cc.bat</strong> 파일을 만들어두면 어느 터미널에서나 <strong>cc</strong> 한 글자로 실행할 수 있어요.</p>
+      <a class="btn btn-blue" href="cc.bat" download="cc.bat">
+        ⬇️ cc.bat 다운로드
+      </a>
+      <ul class="inst-list">
+        <li>다운로드된 <strong>cc.bat</strong> 파일을 찾아요</li>
+        <li><strong>C:\Windows</strong> 폴더에 <strong>복사해서 붙여넣기</strong></li>
+        <li>"관리자 권한이 필요합니다" → <strong>계속</strong> 클릭</li>
+        <li>이제 어느 터미널·PowerShell에서나 <strong>cc</strong> 입력 → Enter!</li>
+      </ul>
+      <div class="tip">
+        <strong>💡 원리:</strong> C:\Windows는 PATH에 등록된 폴더라서, 거기에 있는 .bat 파일은 어디서든 이름만으로 실행할 수 있어요. cc.bat 안에는 그냥 <strong>claude --dangerously-skip-permissions</strong>가 적혀있을 뿐이에요!
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- Done -->
@@ -523,7 +544,7 @@ const steps = document.querySelectorAll('.step');
 const totalSteps = steps.length;
 const progressFill = document.getElementById('progressFill');
 const progressText = document.getElementById('progressText');
-const labels = ['시작해볼까요?', '1/6 Node.js 설치', '2/6 Git 설치', '3/6 PowerShell 설정', '4/6 Claude Code 설치', '5/6 Claude 실행', '6/6 로그인'];
+const labels = ['시작해볼까요?', '1/7 Node.js 설치', '2/7 Git 설치', '3/7 PowerShell 설정', '4/7 Claude Code 설치', '5/7 Claude 실행', '6/7 로그인', '7/7 cc 단축키 만들기'];
 
 function updateProgress() {
   let maxVisible = 0;
